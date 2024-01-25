@@ -5,8 +5,8 @@ import br.com.adatask.domain.BaseTask;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListRepository<T extends BaseTask> implements Repository<T> {
-    private List<T> tasks;
+public class ListRepository<T extends BaseTask, U> implements Repository<T, U> {
+    private final List<T> tasks;
 
     public ListRepository() {
         tasks = new ArrayList<>();
@@ -28,6 +28,16 @@ public class ListRepository<T extends BaseTask> implements Repository<T> {
         if (index != -1) {
             tasks.set(index, task);
         }
+    }
+
+    @Override
+    public T findById(U id) {
+        for (T task : tasks) {
+            if (task.getId() == id) {
+                return task;
+            }
+        }
+        return null;
     }
 
     @Override

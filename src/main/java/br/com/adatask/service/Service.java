@@ -1,76 +1,26 @@
 package br.com.adatask.service;
 
 import br.com.adatask.domain.BaseTask;
-import br.com.adatask.domain.PersonalTask;
-import br.com.adatask.domain.StudyTask;
-import br.com.adatask.domain.WorkTask;
-import br.com.adatask.domain.enums.Priority;
-import br.com.adatask.repository.Repository;
 
 import java.util.List;
 
-public class Service {
-    private Repository<BaseTask> repository;
+public interface Service {
+    void createPersonalTask(String title, String description, String deadline, String priority);
 
-    public Service(Repository<BaseTask> repository) {
-        this.repository = repository;
-    }
+    void createWorkTask(String title, String description, String deadline, String category);
 
-    public void createPersonalTask(String title, String description, String deadline, Priority priority) {
-        PersonalTask task = new PersonalTask(title, description, deadline, priority);
-        repository.add(task);
-    }
+    void createStudyTask(String title, String description, String deadline, String status);
 
-    public void createWorkTask(String title, String description, String deadline, String category) {
-        WorkTask task = new WorkTask(title, description, deadline, category);
-        repository.add(task);
-    }
+    BaseTask filterTaskByTitle(String title);
 
-    public void createStudyTask(String title, String description, String deadline, String status) {
-        StudyTask task = new StudyTask(title, description, deadline, status);
-        repository.add(task);
-    }
+    BaseTask filterTaskById(Long id);
 
-    public BaseTask filterTask(String title) {
-        return repository.find(title);
-    }
+    void editTask(String title, String newTitle, String newDescription, String newDeadline, String newPriority, String newCategory, String newStatus);
 
-    public void editTask(String title, String newTitle, String newDescription, String newDeadline, Priority newPriority, String newCategory, String newStatus) {
-        BaseTask task = repository.find(title);
+    void removeTask(String title);
 
-        if (task != null) {
-            task.setTitle(newTitle);
-            task.setDescription(newDescription);
-            task.setDeadline(newDeadline);
+    List<BaseTask> listAllTasks();
 
-            if (task instanceof PersonalTask) {
-                PersonalTask personalTask = (PersonalTask) task;
-                personalTask.setPriority(newPriority);
-            } else if (task instanceof WorkTask) {
-                WorkTask workTask = (WorkTask) task;
-                workTask.setCategory(newCategory);
-            } else if (task instanceof StudyTask) {
-                StudyTask studyTask = (StudyTask) task;
-                studyTask.setStatus(newStatus);
-            }
-
-            repository.update(task);
-        }
-    }
-
-    public void removeTask(String title) {
-        BaseTask task = repository.find(title);
-        if (task != null) {
-            repository.remove(task);
-        }
-    }
-
-    public List<BaseTask> listAllTasks() {
-        return repository.listAll();
-    }
-
-    public List<BaseTask> filterByType(Class<?> type) {
-        return repository.filterBy(type);
-    }
-
+    List<BaseTask> filterByType(Class<?> type);
 }
+

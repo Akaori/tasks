@@ -4,7 +4,6 @@ import br.com.adatask.domain.BaseTask;
 import br.com.adatask.domain.PersonalTask;
 import br.com.adatask.domain.StudyTask;
 import br.com.adatask.domain.WorkTask;
-import br.com.adatask.domain.enums.Priority;
 import br.com.adatask.service.Service;
 
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ import java.util.Scanner;
 import static java.lang.System.out;
 
 public class Controller {
-    private Service service;
+    private final Service service;
 
     public Controller(Service service) {
         this.service = service;
@@ -30,6 +29,7 @@ public class Controller {
         out.println("5 - Remover uma tarefa");
         out.println("6 - Listar todas as tarefas");
         out.println("7 - Filtrar as tarefas por tipo");
+        out.println("8 - Filtrar as tarefas por id");
         out.println("0 - Sair");
     }
 
@@ -45,7 +45,7 @@ public class Controller {
                 String deadline = scanner.nextLine();
                 out.println("Digite a prioridade da tarefa:");
                 String priority = scanner.nextLine();
-                service.createPersonalTask(title, description, deadline, Priority.valueOf(priority));
+                service.createPersonalTask(title, description, deadline, priority);
                 out.println("Tarefa pessoal criada com sucesso!");
                 break;
             case "2":
@@ -75,7 +75,7 @@ public class Controller {
             case "4":
                 out.println("Digite o título da tarefa que deseja editar:");
                 title = scanner.nextLine();
-                BaseTask task = service.filterTask(title);
+                BaseTask task = service.filterTaskByTitle(title);
                 if (task != null) {
                     out.println("Digite o novo título da tarefa ou deixe em branco para manter o atual:");
                     String newTitle = scanner.nextLine();
@@ -96,7 +96,7 @@ public class Controller {
                         out.println("Digite o novo status da tarefa ou deixe em branco para manter o atual:");
                         newStatus = scanner.nextLine();
                     }
-                    service.editTask(title, newTitle, newDescription, newDeadline, Priority.valueOf(newPriority), newCategory, newStatus);
+                    service.editTask(title, newTitle, newDescription, newDeadline, newPriority, newCategory, newStatus);
                     out.println("Tarefa editada com sucesso!");
                 } else {
                     out.println("Tarefa não encontrada!");
@@ -125,20 +125,12 @@ public class Controller {
                 out.println("2 - Tarefa de trabalho");
                 out.println("3 - Tarefa de estudo");
                 String type = scanner.nextLine();
-                switch (type) {
-                    case "1":
-                        tasks = service.filterByType(PersonalTask.class);
-                        break;
-                    case "2":
-                        tasks = service.filterByType(WorkTask.class);
-                        break;
-                    case "3":
-                        tasks = service.filterByType(StudyTask.class);
-                        break;
-                    default:
-                        tasks = new ArrayList<>();
-                        break;
-                }
+                tasks = switch (type) {
+                    case "1" -> service.filterByType(PersonalTask.class);
+                    case "2" -> service.filterByType(WorkTask.class);
+                    case "3" -> service.filterByType(StudyTask.class);
+                    default -> new ArrayList<>();
+                };
                 if (tasks.isEmpty()) {
                     out.println("Não há tarefas do tipo solicitado!");
                 } else {
@@ -148,8 +140,20 @@ public class Controller {
                     }
                 }
                 break;
+            case "8":
+                out.println("Digite o id da tarefa que deseja filtrar:");
+                String id = scanner.nextLine();
+                task = service.filterTaskById(Long.parseLong(id));
+                if (task != null) {
+                    out.println(task);
+                } else {
+                    out.println("Não há tarefa com esse id.");
+                }
+                break;
             case "0":
                 out.println("Obrigado por usar o AdaTask!");
+            default:
+                out.println("Essa opção não existe. Por favor, tente outra opção listada acima.");
         }
 
     }
