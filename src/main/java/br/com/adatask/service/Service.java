@@ -21,6 +21,6 @@ public interface Service {
 
     List<BaseTask> listAllTasks();
 
-    List<BaseTask> filterByType(Class<?> type);
+    List<BaseTask> filterByType(Class<? extends BaseTask> type);
 }
 

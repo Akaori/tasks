@@ -73,7 +73,7 @@ public class ServiceImpl implements Service {
         return repository.listAll();
     }
 
-    public List<BaseTask> filterByType(Class<?> type) {
+    public List<BaseTask> filterByType(Class<? extends BaseTask> type) {
         return repository.filterBy(type);
     }
 

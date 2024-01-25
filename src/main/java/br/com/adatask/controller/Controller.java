@@ -152,6 +152,7 @@ public class Controller {
                 break;
             case "0":
                 out.println("Obrigado por usar o AdaTask!");
+                break;
             default:
                 out.println("Essa opção não existe. Por favor, tente outra opção listada acima.");
         }
