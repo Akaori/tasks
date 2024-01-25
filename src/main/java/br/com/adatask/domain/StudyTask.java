@@ -1,19 +1,12 @@
 package br.com.adatask.domain;
 
-import lombok.Data;
+import br.com.adatask.domain.enums.Tag;
 
-@Data
 public class StudyTask extends BaseTask {
-    private String status;
 
-    public StudyTask(String title, String description, String deadline, String status) {
+    public StudyTask(String title, String description, String deadline) {
         super(title, description, deadline);
-        this.status = status;
+        this.tag = Tag.STUDY;
     }
 
-    @Override
-    public String toString() {
-        return super.toString() +
-                "Status: " + status + "\n";
-    }
 }

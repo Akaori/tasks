@@ -1,5 +1,6 @@
 package br.com.adatask.domain;
 
+import br.com.adatask.domain.enums.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ public abstract class BaseTask implements Identifiable<Long> {
     private String title;
     private String description;
     private String deadline;
+    protected Tag tag;
 
     public BaseTask(String title, String description, String deadline) {
         this.title = title;
@@ -27,5 +29,16 @@ public abstract class BaseTask implements Identifiable<Long> {
             return this.title.equals(other.title);
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "BaseTask{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", deadline='" + deadline + '\'' +
+                ", tag=" + tag +
+                '}';
     }
 }

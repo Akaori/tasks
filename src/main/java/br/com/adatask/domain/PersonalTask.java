@@ -1,19 +1,13 @@
 package br.com.adatask.domain;
 
-import lombok.Data;
+import br.com.adatask.domain.enums.Tag;
 
-@Data
+
 public class PersonalTask extends BaseTask {
-    private String priority;
 
-    public PersonalTask(String title, String description, String deadline, String priority) {
+    public PersonalTask(String title, String description, String deadline) {
         super(title, description, deadline);
-        this.priority = priority;
+        this.tag = Tag.PERSONAL;
     }
 
-    @Override
-    public String toString() {
-        return super.toString() +
-                "Prioridade: " + priority + "\n";
-    }
 }

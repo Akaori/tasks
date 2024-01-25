@@ -1,12 +1,10 @@
 package br.com.adatask.service.impl;
 
 import br.com.adatask.domain.BaseTask;
-import br.com.adatask.domain.PersonalTask;
-import br.com.adatask.domain.StudyTask;
-import br.com.adatask.domain.WorkTask;
 import br.com.adatask.repository.Repository;
 import br.com.adatask.service.Service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class ServiceImpl implements Service {
@@ -16,18 +14,8 @@ public class ServiceImpl implements Service {
         this.repository = repository;
     }
 
-    public void createPersonalTask(String title, String description, String deadline, String priority) {
-        PersonalTask task = new PersonalTask(title, description, deadline, priority);
-        repository.add(task);
-    }
-
-    public void createWorkTask(String title, String description, String deadline, String category) {
-        WorkTask task = new WorkTask(title, description, deadline, category);
-        repository.add(task);
-    }
-
-    public void createStudyTask(String title, String description, String deadline, String status) {
-        StudyTask task = new StudyTask(title, description, deadline, status);
+    public void createTask(Class<? extends BaseTask> taskClass, String title, String description, String deadline) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        BaseTask task = taskClass.getConstructor(String.class, String.class, String.class).newInstance(title, description, deadline);
         repository.add(task);
     }
 

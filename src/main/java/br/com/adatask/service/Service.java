@@ -2,14 +2,11 @@ package br.com.adatask.service;
 
 import br.com.adatask.domain.BaseTask;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public interface Service {
-    void createPersonalTask(String title, String description, String deadline, String priority);
-
-    void createWorkTask(String title, String description, String deadline, String category);
-
-    void createStudyTask(String title, String description, String deadline, String status);
+    void createTask(Class<? extends BaseTask> taskClass, String title, String description, String deadline)  throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException;
 
     BaseTask filterTaskByTitle(String title);
 

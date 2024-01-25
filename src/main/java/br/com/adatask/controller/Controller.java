@@ -6,6 +6,7 @@ import br.com.adatask.domain.StudyTask;
 import br.com.adatask.domain.WorkTask;
 import br.com.adatask.service.Service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -33,7 +34,7 @@ public class Controller {
         out.println("0 - Sair");
     }
 
-    public void processCommand(String command) {
+    public void processCommand(String command) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         Scanner scanner = new Scanner(System.in);
         switch (command) {
             case "1":
@@ -43,9 +44,7 @@ public class Controller {
                 String description = scanner.nextLine();
                 out.println("Digite o prazo da tarefa:");
                 String deadline = scanner.nextLine();
-                out.println("Digite a prioridade da tarefa:");
-                String priority = scanner.nextLine();
-                service.createPersonalTask(title, description, deadline, priority);
+                service.createTask(PersonalTask.class, title, description, deadline);
                 out.println("Tarefa pessoal criada com sucesso!");
                 break;
             case "2":
@@ -55,9 +54,7 @@ public class Controller {
                 description = scanner.nextLine();
                 out.println("Digite o prazo da tarefa:");
                 deadline = scanner.nextLine();
-                out.println("Digite a categoria da tarefa:");
-                String category = scanner.nextLine();
-                service.createWorkTask(title, description, deadline, category);
+                service.createTask(WorkTask.class, title, description, deadline);
                 out.println("Tarefa de trabalho criada com sucesso!");
                 break;
             case "3":
@@ -67,9 +64,7 @@ public class Controller {
                 description = scanner.nextLine();
                 out.println("Digite o prazo da tarefa:");
                 deadline = scanner.nextLine();
-                out.println("Digite o status da tarefa:");
-                String status = scanner.nextLine();
-                service.createStudyTask(title, description, deadline, status);
+                service.createTask(StudyTask.class, title, description, deadline);
                 out.println("Tarefa de estudo criada com sucesso!");
                 break;
             case "4":
@@ -77,11 +72,11 @@ public class Controller {
                 title = scanner.nextLine();
                 BaseTask task = service.filterTaskByTitle(title);
                 if (task != null) {
-                    out.println("Digite o novo título da tarefa ou deixe em branco para manter o atual:");
+                    out.println("Digite o novo título da tarefa:");
                     String newTitle = scanner.nextLine();
-                    out.println("Digite a nova descrição da tarefa ou deixe em branco para manter a atual:");
+                    out.println("Digite a nova descrição da tarefa:");
                     String newDescription = scanner.nextLine();
-                    out.println("Digite o novo prazo da tarefa ou deixe em branco para manter o atual:");
+                    out.println("Digite o novo prazo da tarefa:");
                     String newDeadline = scanner.nextLine();
                     service.editTask(title, newTitle, newDescription, newDeadline);
                     out.println("Tarefa editada com sucesso!");
