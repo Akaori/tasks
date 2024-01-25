@@ -15,7 +15,7 @@ public interface Service {
 
     BaseTask filterTaskById(Long id);
 
-    void editTask(String title, String newTitle, String newDescription, String newDeadline, String newPriority, String newCategory, String newStatus);
+    void editTask(String title, String newTitle, String newDescription, String newDeadline);
 
     void removeTask(String title);
 

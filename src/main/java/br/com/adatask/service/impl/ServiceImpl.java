@@ -39,25 +39,13 @@ public class ServiceImpl implements Service {
         return repository.findById(id);
     }
 
-    public void editTask(String title, String newTitle, String newDescription, String newDeadline, String newPriority, String newCategory, String newStatus) {
+    public void editTask(String title, String newTitle, String newDescription, String newDeadline) {
         BaseTask task = repository.find(title);
 
         if (task != null) {
             task.setTitle(newTitle);
             task.setDescription(newDescription);
             task.setDeadline(newDeadline);
-
-            if (task instanceof PersonalTask) {
-                PersonalTask personalTask = (PersonalTask) task;
-                personalTask.setPriority(newPriority);
-            } else if (task instanceof WorkTask) {
-                WorkTask workTask = (WorkTask) task;
-                workTask.setCategory(newCategory);
-            } else if (task instanceof StudyTask) {
-                StudyTask studyTask = (StudyTask) task;
-                studyTask.setStatus(newStatus);
-            }
-
             repository.update(task);
         }
     }

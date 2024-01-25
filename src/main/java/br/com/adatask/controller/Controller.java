@@ -83,20 +83,7 @@ public class Controller {
                     String newDescription = scanner.nextLine();
                     out.println("Digite o novo prazo da tarefa ou deixe em branco para manter o atual:");
                     String newDeadline = scanner.nextLine();
-                    String newPriority = null;
-                    String newCategory = null;
-                    String newStatus = null;
-                    if (task instanceof PersonalTask) {
-                        out.println("Digite a nova prioridade da tarefa ou deixe em branco para manter a atual:");
-                        newPriority = scanner.nextLine();
-                    } else if (task instanceof WorkTask) {
-                        out.println("Digite a nova categoria da tarefa ou deixe em branco para manter a atual:");
-                        newCategory = scanner.nextLine();
-                    } else if (task instanceof StudyTask) {
-                        out.println("Digite o novo status da tarefa ou deixe em branco para manter o atual:");
-                        newStatus = scanner.nextLine();
-                    }
-                    service.editTask(title, newTitle, newDescription, newDeadline, newPriority, newCategory, newStatus);
+                    service.editTask(title, newTitle, newDescription, newDeadline);
                     out.println("Tarefa editada com sucesso!");
                 } else {
                     out.println("Tarefa não encontrada!");
