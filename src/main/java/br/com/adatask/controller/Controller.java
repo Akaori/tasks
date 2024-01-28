@@ -95,7 +95,7 @@ public class Controller {
                 validAnswers = new ArrayList<>();
                 for (int i=0; i<tasksTypes.size(); i++) {
                     validAnswers.add(String.valueOf(i+1));
-                    out.println((i + 1) + " - Criar uma tarefa de " + tasksTypes.get(i).getSimpleName());
+                    out.println((i + 1) + " - Filtrar tarefas de " + tasksTypes.get(i).getSimpleName());
                 }
                 type = scanner.nextLine();
                 if (validAnswers.contains(type)) {
