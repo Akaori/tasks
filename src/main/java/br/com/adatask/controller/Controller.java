@@ -1,9 +1,6 @@
 package br.com.adatask.controller;
 
 import br.com.adatask.domain.BaseTask;
-import br.com.adatask.domain.PersonalTask;
-import br.com.adatask.domain.StudyTask;
-import br.com.adatask.domain.WorkTask;
 import br.com.adatask.service.Service;
 
 import java.lang.reflect.InvocationTargetException;
@@ -41,7 +38,7 @@ public class Controller {
                 out.println("Digite o tipo de tarefa que deseja criar:");
                 List<String> validAnswers = new ArrayList<>();
                 for (int i=0; i<tasksTypes.size(); i++) {
-                    validAnswers.add(String.valueOf(i));
+                    validAnswers.add(String.valueOf(i+1));
                     out.println((i + 1) + " - Criar uma tarefa de " + tasksTypes.get(i).getSimpleName());
                 }
                 String type = scanner.nextLine();
@@ -97,7 +94,7 @@ public class Controller {
                 out.println("Digite o tipo de tarefa que deseja filtrar:");
                 validAnswers = new ArrayList<>();
                 for (int i=0; i<tasksTypes.size(); i++) {
-                    validAnswers.add(String.valueOf(i));
+                    validAnswers.add(String.valueOf(i+1));
                     out.println((i + 1) + " - Criar uma tarefa de " + tasksTypes.get(i).getSimpleName());
                 }
                 type = scanner.nextLine();
