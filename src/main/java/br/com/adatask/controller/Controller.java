@@ -2,6 +2,7 @@ package br.com.adatask.controller;
 
 import br.com.adatask.domain.BaseTask;
 import br.com.adatask.service.Service;
+import jdk.jfr.Label;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class Controller {
                 List<String> validAnswers = new ArrayList<>();
                 for (int i=0; i<tasksTypes.size(); i++) {
                     validAnswers.add(String.valueOf(i+1));
-                    out.println((i + 1) + " - Criar uma tarefa de " + tasksTypes.get(i).getSimpleName());
+                    out.println((i + 1) + " - Criar uma tarefa de " + tasksTypes.get(i).getAnnotation(Label.class).value());
                 }
                 String type = scanner.nextLine();
                 if (validAnswers.contains(type)) {
@@ -95,7 +96,7 @@ public class Controller {
                 validAnswers = new ArrayList<>();
                 for (int i=0; i<tasksTypes.size(); i++) {
                     validAnswers.add(String.valueOf(i+1));
-                    out.println((i + 1) + " - Filtrar tarefas de " + tasksTypes.get(i).getSimpleName());
+                    out.println((i + 1) + " - Filtrar tarefas de " + tasksTypes.get(i).getAnnotation(Label.class).value());
                 }
                 type = scanner.nextLine();
                 if (validAnswers.contains(type)) {
