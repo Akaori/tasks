@@ -2,26 +2,10 @@
 
 ```mermaid
 classDiagram
-Identifiable <|-- BaseTask
 BaseTask <|-- PersonalTask
 BaseTask <|-- StudyTask
 BaseTask <|-- WorkTask
-BaseTask : -count: int
-BaseTask : -id: Long
-BaseTask : -title: String
-BaseTask : -description: String
-BaseTask : -deadline: String
-BaseTask : -tag: Tag
-BaseTask : +BaseTask(title, description, deadline)
-BaseTask : +equals(obj): boolean
-BaseTask : +toString(): String
-PersonalTask : +PersonalTask(title, description, deadline)
-PersonalTask : +tag: Tag.PERSONAL
-StudyTask : +StudyTask(title, description, deadline)
-StudyTask : +tag: Tag.STUDY
-WorkTask : +WorkTask(title, description, deadline)
-WorkTask : +tag: Tag.WORK
-Identifiable : +getId(): U
+Identifiable <|.. BaseTask
 ```
 
 ## 🔍 Sobre
